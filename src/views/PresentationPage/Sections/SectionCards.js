@@ -5,7 +5,7 @@ import classNames from "classnames";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 import cardsStyle from "assets/jss/material-kit-pro-react/views/presentationSections/cardsStyle.js";
 
@@ -21,7 +21,7 @@ export default function SectionCards() {
         <GridContainer justify="center">
           <GridItem md={7} sm={7}>
             <div className={classes.imageContainer}>
-              <img src={cardsTest} alt="views" />
+              <img src={cardsTest} alt="views"/>
             </div>
           </GridItem>
           <GridItem md={4} sm={5} className={classes.mlAuto}>
