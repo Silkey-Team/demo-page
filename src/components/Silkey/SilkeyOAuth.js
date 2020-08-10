@@ -1,24 +1,6 @@
 import {queryStringGetter} from "./QueryStringGetter";
-
-const starkbank = require('starkbank');
-const jwt = require("jsonwebtoken");
-
-function generateRandomKeys() {
-  const email = Math.floor(Math.random() * 10000) + "@silkey.io";
-  //const randomWallet = ethers.Wallet.createRandom();
-
-  let privateKey, publicKey;
-  [privateKey, publicKey] = starkbank.key.create("./");
-
-  const user = {
-    email,
-    privateKey,
-    publicKey
-  }
-
-  console.log('created registration data for user', user)
-  return user
-}
+import JWTGenerator from "./JWTGenerator";
+import {ethers} from "ethers";
 
 function uriCreator(url = '', data = {}) {
   if (!data) {
@@ -31,17 +13,6 @@ function uriCreator(url = '', data = {}) {
   })
 
   return uri
-}
-
-function createJwt(user) {
-  const payload = {
-    id: user.email, // TODO
-    email: user.email,
-    publicKey: user.publicKey,
-    ethAddress: ""
-  }
-
-  return jwt.sign(payload, user.privateKey, {algorithm: 'ES256'});
 }
 
 function replyWithToken(redirect_uri, token) {
@@ -58,17 +29,21 @@ export function userAuthorization() {
     return
   }
 
-  // is user already have random key (is registered Silkey user) then we will use it
-  // otherwise let's generate keys
-  const user = generateRandomKeys()
-  const token = createJwt(user)
-
+  // generate new wallet or use existing one ig:
+  // mnemonic ? ethers.Wallet.fromMnemonic(mnemonic) : ethers.Wallet.createRandom();
+  const token = JWTGenerator(ethers.Wallet.createRandom())
   console.log('TOKEN', token)
 
- replyWithToken(redirect_uri, token)
+  replyWithToken(redirect_uri, token)
 }
 
 export function demoSilkeySelfOAuth() {
-  const user = generateRandomKeys()
-  replyWithToken(window.location.href, createJwt(user))
+  const uri = new URL(window.location)
+  uri.searchParams.delete('access_token')
+  uri.searchParams.delete('token_type')
+
+  //existing user example:
+  //const pk = "0xb10332aa04e184e36164381c3cd178a89da6dfc546547b79d7fb71492d89c36c"
+  //replyWithToken(uri.href, JWTokenGenerator(new ethers.Wallet(pk)))
+  replyWithToken(uri.href, JWTGenerator(ethers.Wallet.createRandom()))
 }

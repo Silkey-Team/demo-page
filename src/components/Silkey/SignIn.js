@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import Button from "components/CustomButtons/Button.js";
 import {queryStringGetter} from "./QueryStringGetter";
 import {demoSilkeySelfOAuth} from "./SilkeyOAuth";
-
-const jwt = require("jsonwebtoken");
+import JWTPayloadVerificator from "./JWTPayloadVerificator";
 
 const SILKEY_OAUTH_TOKEN_API = '#'
 const SILKEY_LOCAL_STORAGE_KEY = 'silkey_token'
@@ -12,7 +11,7 @@ export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.authorisedUser()
+      user: this.fetchAuthorisedUser()
     };
 
     this.signOut = this.signOut.bind(this)
@@ -23,40 +22,37 @@ export default class SignIn extends Component {
     window.location.href = uri.pathname
   }
 
-  authorisedUser() {
+  fetchAuthorisedUser() {
     const local_user = localStorage.getItem(SILKEY_LOCAL_STORAGE_KEY)
+
     if (local_user) {
-      console.log('localStorage token')
-      console.log(JSON.parse(local_user))
-      return JSON.parse(local_user)
+      const user = JSON.parse(local_user)
+      console.log('local storage user:', user)
+
+      if (user) {
+        return user
+      }
     }
 
     const token_type = queryStringGetter("token_type")
     if (token_type !== "Bearer") {
+      console.warn("Only Bearer are supported,", token_type, 'found.')
       return null
     }
 
     const access_token = queryStringGetter("access_token")
-    const verified_user = this.verifyJWT(access_token)
-    localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user))
-    this.redirectToPath()
-  }
 
-  verifyJWT(token) {
-    if (token === "") {
-      return false;
-    }
+    if (access_token) {
+      console.log("verifying access_token...")
+      const verified_user = JWTPayloadVerificator(access_token)
 
-    try {
-      const user = jwt.decode(token)
-      console.log('decoded token', user)
-      return jwt.verify(token, user.publicKey)
-
-      //silkey....
-      //web3.verify(user.sig, ethAddress(user.publicKey))
-
-    } catch (e) {
-      return null
+      if (verified_user) {
+        console.log('verification successful')
+        localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user))
+        this.redirectToPath()
+      } else {
+        console.error('JWT invalid')
+      }
     }
   }
 
@@ -83,8 +79,8 @@ export default class SignIn extends Component {
       return null
     }
 
-    const d = this.state.user.id.length
-    return this.state.user.id.slice(0, 4) + '..' + this.state.user.id.slice(d - 4)
+    const d = this.state.user.email.length
+    return this.state.user.email.slice(0, 5) + '..' + this.state.user.email.slice(d - 13)
   }
 
   render() {
@@ -107,7 +103,7 @@ export default class SignIn extends Component {
   renderHelloUser() {
     return (
       <>
-        <strong><i className="fa fa-user-secret"/> Hi {this.state.user.id}</strong>
+        <strong><i className="fa fa-user-secret"/> Hi </strong><small style={{color: "white"}}>{this.shortUserId()}</small>
         {' '}
         <Button
           href="#"

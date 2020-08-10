@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "jsonwebtoken": "^8.5.1",
-    "keypairs": "^1.2.14"
+    "keypairs": "^1.2.14",
+    "standard-ecies": "^2.0.0"
   }
 }

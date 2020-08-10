@@ -11704,6 +11704,11 @@ stack-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.2.tgz#33eba3897788558bebfc2db059dc158ec36cebb8"
   integrity sha512-MTX+MeG5U994cazkjd/9KNAapsHnibjMLnfXodlkXw76JEea0UiNzrqidzo1emMwk7w5Qhc9jd4Bn9TBb1MFwA==
 
+standard-ecies@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/standard-ecies/-/standard-ecies-2.0.0.tgz#ac2a142f6414a89b24eeeca21b9f9f43a58052b9"
+  integrity sha512-O7iMGUA862Lf/4yUzButCOXcih0uRS4OEfmDhEW1I/iCaImyVBM7SnBdYc/9WEBhQ1kqSb+cG6Hzvy+Rvuwt1w==
+
 starkbank-ecdsa@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/starkbank-ecdsa/-/starkbank-ecdsa-1.0.0.tgz#0d9e1c497d25e2b106bfc863b12486ca333c3ffa"

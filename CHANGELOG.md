@@ -7,4 +7,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - boilerplate react template
-- example of usage silkey dAuth
+- example of usage silkey dAuth: classes for generating JWT and verifying address
