@@ -2,7 +2,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 // @material-ui icons
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
@@ -13,7 +13,8 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import Button from "components/CustomButtons/Button.js";
 
-import freeDemoStyle from "assets/jss/material-kit-pro-react/views/presentationSections/freeDemoStyle.js";
+import freeDemoStyle
+  from "assets/jss/material-kit-pro-react/views/presentationSections/freeDemoStyle.js";
 
 const useStyles = makeStyles(freeDemoStyle);
 
@@ -29,7 +30,7 @@ export default function SectionFreeDemo() {
             className={classes.mlAuto + " " + classes.mrAuto}
           >
             <div className={classes.iconGithub}>
-              <div className="fab fa-github" />
+              <div className="fab fa-github"/>
             </div>
             <div>
               <h2 className={classes.title}>Free Demo</h2>

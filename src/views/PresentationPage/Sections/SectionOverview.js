@@ -14,8 +14,7 @@ import PhoneLink from "@material-ui/icons/Phonelink";
 import AccessTime from "@material-ui/icons/AccessTime";
 import AttachMoney from "@material-ui/icons/AttachMoney";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-
+import {makeStyles} from "@material-ui/core/styles";
 // images
 import Vodafone from "assets/img/assets-for-demo/ourClients/vodafone.jpg";
 import Microsoft from "assets/img/assets-for-demo/ourClients/microsoft.jpg";
@@ -25,7 +24,8 @@ import profilePic1 from "assets/img/assets-for-demo/test1.jpg";
 import profilePic2 from "assets/img/assets-for-demo/test2.jpg";
 import profilePic3 from "assets/img/assets-for-demo/test3.jpg";
 
-import overviewStyle from "assets/jss/material-kit-pro-react/views/presentationSections/overviewStyle.js";
+import overviewStyle
+  from "assets/jss/material-kit-pro-react/views/presentationSections/overviewStyle.js";
 
 const useStyles = makeStyles(overviewStyle);
 
@@ -130,7 +130,7 @@ export default function SectionOverview() {
                   <GridItem md={3} sm={3}>
                     <CardHeader image plain>
                       <a href="#pablo">
-                        <img src={profilePic1} alt="..." />
+                        <img src={profilePic1} alt="..."/>
                       </a>
                       <div
                         className={classes.coloredShadow}
@@ -167,7 +167,7 @@ export default function SectionOverview() {
                   <GridItem md={3} sm={3}>
                     <CardHeader image plain>
                       <a href="#pablo">
-                        <img src={profilePic2} alt="..." />
+                        <img src={profilePic2} alt="..."/>
                       </a>
                       <div
                         className={classes.coloredShadow}
@@ -205,7 +205,7 @@ export default function SectionOverview() {
                   <GridItem md={3} sm={3}>
                     <CardHeader image plain>
                       <a href="#pablo">
-                        <img src={profilePic3} alt="..." />
+                        <img src={profilePic3} alt="..."/>
                       </a>
                       <div
                         className={classes.coloredShadow}
@@ -239,16 +239,16 @@ export default function SectionOverview() {
           <div className={classes.ourClients}>
             <GridContainer justify="center">
               <GridItem md={3} sm={3}>
-                <img src={Vodafone} alt="vodafone" />
+                <img src={Vodafone} alt="vodafone"/>
               </GridItem>
               <GridItem md={3} sm={3}>
-                <img src={Microsoft} alt="microsoft" />
+                <img src={Microsoft} alt="microsoft"/>
               </GridItem>
               <GridItem md={3} sm={3}>
-                <img src={Harvard} alt="harvard" />
+                <img src={Harvard} alt="harvard"/>
               </GridItem>
               <GridItem md={3} sm={3}>
-                <img src={Standford} alt="stanford" />
+                <img src={Standford} alt="stanford"/>
               </GridItem>
             </GridContainer>
           </div>

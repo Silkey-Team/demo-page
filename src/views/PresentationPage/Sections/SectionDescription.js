@@ -3,15 +3,15 @@ import React from "react";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InfoArea from "components/InfoArea/InfoArea.js";
-
 // @material-ui icons
 import Apps from "@material-ui/icons/Apps";
 import ViewDay from "@material-ui/icons/ViewDay";
 import ViewCarousel from "@material-ui/icons/ViewCarousel";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
-import descriptionStyle from "assets/jss/material-kit-pro-react/views/presentationSections/descriptionStyle.js";
+import descriptionStyle
+  from "assets/jss/material-kit-pro-react/views/presentationSections/descriptionStyle.js";
 
 const useStyles = makeStyles(descriptionStyle);
 
