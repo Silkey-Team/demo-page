@@ -34,6 +34,7 @@
     "react-tagsinput": "^3.19.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "silkey-sdk": "file:../silkey-sdk",
     "starkbank": "^0.6.0-beta.0"
   },
   "scripts": {
