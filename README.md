@@ -1,15 +1,30 @@
 # Silkey DEMO page
 
-## Available Scripts
-
-```
-yarn start
-yarn test
-yarn build
-yarn eject
-```
-
 ## DigitalOcean Deployment
+
+### Deploy as static files
+
+#### First Run Based On DigitalOcean Droplet 
+
+- create NodeJS droplet
+- setup (sub)domains (including www.)
+- ssh to server and run `nodejs-droplet-install.sh` on the server 
+  Certbot script will ask you several quesions, when ask for domain type ie:  
+  `demo-staging.silkey.io www.demo-staging.silkey.io`
+
+__Check configuration__
+```
+cat /etc/nginx/sites-available/default
+sudo -u nodejs pm2 list
+# should be no items in the list
+```
+ 
+### Deploy service
+
+    npm run build:staging
+    ./scripts/deploy.sh demo-staging.silkey.io
+
+### Docekerized deployment
 
 - Create droplet based on predefinedd docker image
 - Setup github:
