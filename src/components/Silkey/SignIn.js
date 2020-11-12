@@ -1,120 +1,144 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
-import {queryStringGetter} from "./QueryStringGetter";
-import {demoSilkeySelfOAuth} from "./SilkeyOAuth";
+import { queryStringGetter } from "./QueryStringGetter";
+import { demoSilkeySelfOAuth } from "./SilkeyOAuth";
 import JWTPayloadVerificator from "./JWTPayloadVerificator";
+import sdk from "silkey-sdk";
 
-const SILKEY_OAUTH_TOKEN_API = '#'
-const SILKEY_LOCAL_STORAGE_KEY = 'silkey_token'
+const SILKEY_OAUTH_TOKEN_API = "#";
+const SILKEY_LOCAL_STORAGE_KEY = "silkey_token";
 
 export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.fetchAuthorisedUser()
+      user: this.fetchAuthorisedUser(),
     };
 
-    this.signOut = this.signOut.bind(this)
+    this.signOut = this.signOut.bind(this);
   }
 
   redirectToPath() {
-    let uri = new URL(window.location)
-    window.location.href = uri.pathname
+    let uri = new URL(window.location);
+    window.location.href = uri.pathname;
   }
 
   fetchAuthorisedUser() {
-    const local_user = localStorage.getItem(SILKEY_LOCAL_STORAGE_KEY)
+    const local_user = localStorage.getItem(SILKEY_LOCAL_STORAGE_KEY);
 
     if (local_user) {
-      const user = JSON.parse(local_user)
-      console.log('local storage user:', user)
+      const user = JSON.parse(local_user);
+      console.log("local storage user:", user);
 
       if (user) {
-        return user
+        return user;
       }
     }
 
-    const token_type = queryStringGetter("token_type")
-    if (token_type !== "Bearer") {
-      console.warn("Only Bearer are supported,", token_type, 'found.')
-      return null
+    const token = queryStringGetter("token");
+    console.log({ token });
+    const verified_user = sdk.tokenPayloadVerifier(token);
+
+    if (verified_user) {
+      console.log("verification successful");
+      localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
+      // this.redirectToPath();
+      console.log(new URL(window.location).origin);
+      // window.location = new URL(window.location).origin;
     }
+    return null;
 
-    const access_token = queryStringGetter("access_token")
+    // const token_type = queryStringGetter("token_type");
+    // if (token_type !== "Bearer") {
+    //   console.warn("Only Bearer are supported,", token_type, "found.");
+    //   return null;
+    // }
 
-    if (access_token) {
-      console.log("verifying access_token...")
-      const verified_user = JWTPayloadVerificator(access_token)
+    // const access_token = queryStringGetter("access_token");
 
-      if (verified_user) {
-        console.log('verification successful')
-        localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user))
-        this.redirectToPath()
-      } else {
-        console.error('JWT invalid')
-      }
-    }
+    // if (access_token) {
+    //   console.log("verifying access_token...");
+    //   const verified_user = JWTPayloadVerificator(access_token);
+
+    //   if (verified_user) {
+    //     console.log("verification successful");
+    //     localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
+    //     this.redirectToPath();
+    //   } else {
+    //     console.error("JWT invalid");
+    //   }
+    // }
   }
 
-  redirectForOAuth(e) {
-    e.preventDefault()
-    if (SILKEY_OAUTH_TOKEN_API === '#') {
-      demoSilkeySelfOAuth()
-      return
+  redirectForOAuthEmail(e) {
+    e.preventDefault();
+    if (SILKEY_OAUTH_TOKEN_API === "#") {
+      demoSilkeySelfOAuth("email");
+      return;
     }
 
-    window.location.href = SILKEY_OAUTH_TOKEN_API
+    window.location.href = SILKEY_OAUTH_TOKEN_API;
+  }
+
+  redirectForOAuthId(e) {
+    e.preventDefault();
+    if (SILKEY_OAUTH_TOKEN_API === "#") {
+      demoSilkeySelfOAuth("id");
+      return;
+    }
+
+    window.location.href = SILKEY_OAUTH_TOKEN_API;
   }
 
   signOut(e) {
-    e.preventDefault()
-    localStorage.clear()
+    e.preventDefault();
+    localStorage.clear();
     this.setState({
-      user: null
-    })
+      user: null,
+    });
   }
 
   shortUserId() {
     if (!this.state.user) {
-      return null
+      return null;
     }
 
-    const d = this.state.user.email.length
-    return this.state.user.email.slice(0, 5) + '..' + this.state.user.email.slice(d - 13)
+    if (this.state.email) {
+      const d = this.state.user.email.length;
+      return this.state.user.email.slice(0, 5) + ".." + this.state.user.email.slice(d - 13);
+    } else {
+      return null;
+    }
   }
 
   render() {
-    return this.state.user ? this.renderHelloUser() : this.renderSignIn()
+    return this.state.user ? this.renderHelloUser() : this.renderSignIn();
   }
 
   renderSignIn() {
     return (
-      <Button
-        href="#"
-        onClick={this.redirectForOAuth}
-        color="rose"
-        round
-      >
-        Sign In
-      </Button>
+      <div>
+        <Button href="#" onClick={this.redirectForOAuthId} color="rose" round>
+          Sign In: Id
+        </Button>
+        <Button href="#" onClick={this.redirectForOAuthEmail} color="rose" round>
+          Sign In: Email
+        </Button>
+      </div>
     );
   }
 
   renderHelloUser() {
     return (
       <>
-        <strong><i className="fa fa-user-secret"/> Hi </strong><small style={{color: "white"}}>{this.shortUserId()}</small>
-        {' '}
-        <Button
-          href="#"
-          onClick={this.signOut}
-          color="primary"
-          round
-          size="sm"
-        >
+        <strong>
+          <i className="fa fa-user-secret" /> Hi{" "}
+        </strong>
+        <small style={{ color: "white" }}>{this.shortUserId()}</small>{" "}
+        <Button href="#" onClick={this.signOut} color="primary" round size="sm">
           Sign Out
         </Button>
       </>
-    )
+    );
   }
 }
