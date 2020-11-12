@@ -46,6 +46,7 @@ export async function demoSilkeySelfOAuth(scope) {
 
   const requestParams = await sdk.generateSSORequestParams(process.env.REACT_APP_PRIVATE_KEY, {
     // redirectUrl: uri,
+    cancelUrl: "https://demo.silkey.io",
     redirectUrl: "https://demo.silkey.io",
     scope,
     refId: 1234,
@@ -61,5 +62,5 @@ export async function demoSilkeySelfOAuth(scope) {
   //existing user example:
   //const pk = "0xb10332aa04e184e36164381c3cd178a89da6dfc546547b79d7fb71492d89c36c"
   //replyWithToken(uri.href, JWTokenGenerator(new ethers.Wallet(pk)))
-  replyWithToken(uri.href, JWTGenerator(ethers.Wallet.createRandom()));
+  // replyWithToken(uri.href, JWTGenerator(ethers.Wallet.createRandom()));
 }
