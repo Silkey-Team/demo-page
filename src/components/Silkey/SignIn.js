@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
 import { queryStringGetter } from "./QueryStringGetter";
 import { demoSilkeySelfOAuth } from "./SilkeyOAuth";
-import JWTPayloadVerificator from "./JWTPayloadVerificator";
-import sdk from "silkey-sdk";
+import sdk from "@silkey/sdk";
 
 const SILKEY_OAUTH_TOKEN_API = "#";
 const SILKEY_LOCAL_STORAGE_KEY = "silkey_token";
@@ -35,7 +34,7 @@ export default class SignIn extends Component {
       }
     }
 
-    const token = queryStringGetter("token");
+    const token = new URL(window.location).searchParams.get("token");
     console.log({ token });
     const verified_user = sdk.tokenPayloadVerifier(token);
 
@@ -43,8 +42,7 @@ export default class SignIn extends Component {
       console.log("verification successful");
       localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
       // this.redirectToPath();
-      console.log(new URL(window.location).origin);
-      // window.location = new URL(window.location).origin;
+      window.location = new URL(window.location).origin;
     }
     return null;
 
