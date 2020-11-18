@@ -1,7 +1,7 @@
 import { queryStringGetter } from "./QueryStringGetter";
 import JWTGenerator from "./JWTGenerator";
 import { ethers } from "ethers";
-import sdk from "silkey-sdk";
+import sdk from "@silkey/sdk";
 
 function uriCreator(url = "", data = {}) {
   if (!data) {
@@ -45,9 +45,8 @@ export async function demoSilkeySelfOAuth(scope) {
   uri.searchParams.delete("token_type");
 
   const requestParams = await sdk.generateSSORequestParams(process.env.REACT_APP_PRIVATE_KEY, {
-    // redirectUrl: uri,
-    cancelUrl: "https://demo.silkey.io",
-    redirectUrl: "https://demo.silkey.io",
+    cancelUrl: "https://demo-staging.silkey.io",
+    redirectUrl: "https://demo-staging.silkey.io",
     scope,
     refId: 1234,
   });
@@ -55,7 +54,6 @@ export async function demoSilkeySelfOAuth(scope) {
   Object.entries(requestParams).forEach(([key, param]) => {
     silkeyRedirect.searchParams.append(key, param);
   });
-  console.log({ silkeyRedirect });
 
   window.location.replace(silkeyRedirect.href);
 
