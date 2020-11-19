@@ -42,7 +42,8 @@ export default class SignIn extends Component {
       console.log("verification successful");
       localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
       // this.redirectToPath();
-      window.location = new URL(window.location).origin;
+      // redirect to /progile-page
+      window.location = new URL(window.location).origin + "/profile-page";
     }
     return null;
 
@@ -68,20 +69,10 @@ export default class SignIn extends Component {
     // }
   }
 
-  redirectForOAuthEmail(e) {
+  redirectForOAuth(e) {
     e.preventDefault();
     if (SILKEY_OAUTH_TOKEN_API === "#") {
-      demoSilkeySelfOAuth("email");
-      return;
-    }
-
-    window.location.href = SILKEY_OAUTH_TOKEN_API;
-  }
-
-  redirectForOAuthId(e) {
-    e.preventDefault();
-    if (SILKEY_OAUTH_TOKEN_API === "#") {
-      demoSilkeySelfOAuth("id");
+      demoSilkeySelfOAuth();
       return;
     }
 
@@ -115,14 +106,9 @@ export default class SignIn extends Component {
 
   renderSignIn() {
     return (
-      <div>
-        <Button href="#" onClick={this.redirectForOAuthId} color="rose" round>
-          Sign In: Id
-        </Button>
-        <Button href="#" onClick={this.redirectForOAuthEmail} color="rose" round>
-          Sign In: Email
-        </Button>
-      </div>
+      <Button href="#" onClick={this.redirectForOAuth} color="rose" round>
+        Log in Anonymously
+      </Button>
     );
   }
 
@@ -130,7 +116,7 @@ export default class SignIn extends Component {
     return (
       <>
         <strong>
-          <i className="fa fa-user-secret" /> Hi{" "}
+          <i className="fa fa-user-secret" /> Hi {this.state.user.address}
         </strong>
         <small style={{ color: "white" }}>{this.shortUserId()}</small>{" "}
         <Button href="#" onClick={this.signOut} color="primary" round size="sm">

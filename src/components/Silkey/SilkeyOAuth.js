@@ -39,7 +39,7 @@ export function userAuthorization() {
   replyWithToken(redirect_uri, token);
 }
 
-export async function demoSilkeySelfOAuth(scope) {
+export async function demoSilkeySelfOAuth() {
   const uri = new URL(window.location);
   uri.searchParams.delete("access_token");
   uri.searchParams.delete("token_type");
@@ -47,7 +47,7 @@ export async function demoSilkeySelfOAuth(scope) {
   const requestParams = await sdk.generateSSORequestParams(process.env.REACT_APP_PRIVATE_KEY, {
     cancelUrl: "https://demo-staging.silkey.io",
     redirectUrl: "https://demo-staging.silkey.io",
-    scope,
+    scope: "email",
     refId: 1234,
   });
   const silkeyRedirect = new URL(process.env.REACT_APP_ATHENA_URL);
