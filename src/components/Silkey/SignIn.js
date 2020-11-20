@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
-import { queryStringGetter } from "./QueryStringGetter";
 import { demoSilkeySelfOAuth } from "./SilkeyOAuth";
 import sdk from "@silkey/sdk";
 
@@ -15,11 +14,6 @@ export default class SignIn extends Component {
     };
 
     this.signOut = this.signOut.bind(this);
-  }
-
-  redirectToPath() {
-    let uri = new URL(window.location);
-    window.location.href = uri.pathname;
   }
 
   fetchAuthorisedUser() {
@@ -41,32 +35,9 @@ export default class SignIn extends Component {
     if (verified_user) {
       console.log("verification successful");
       localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
-      // this.redirectToPath();
-      // redirect to /progile-page
       window.location = new URL(window.location).origin + "/profile-page";
     }
     return null;
-
-    // const token_type = queryStringGetter("token_type");
-    // if (token_type !== "Bearer") {
-    //   console.warn("Only Bearer are supported,", token_type, "found.");
-    //   return null;
-    // }
-
-    // const access_token = queryStringGetter("access_token");
-
-    // if (access_token) {
-    //   console.log("verifying access_token...");
-    //   const verified_user = JWTPayloadVerificator(access_token);
-
-    //   if (verified_user) {
-    //     console.log("verification successful");
-    //     localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
-    //     this.redirectToPath();
-    //   } else {
-    //     console.error("JWT invalid");
-    //   }
-    // }
   }
 
   redirectForOAuth(e) {

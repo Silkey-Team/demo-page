@@ -92,9 +92,9 @@ export default function ProfilePage({ ...rest }) {
                 </div>
                 <div className={classes.name}>
                   <h3 style={{ wordWrap: "break-word" }} className={classes.title}>
-                    USER ID: {userData.address}
+                    USER ID: {userData.address || "Not Logged In"}
                   </h3>
-                  <h6 style={{ wordWrap: "break-word" }}>EMAIL: {userData.email}</h6>
+                  <h6 style={{ wordWrap: "break-word" }}>EMAIL: {userData.email || "Not Logged In"}</h6>
                   <Button justIcon simple color="dribbble" className={classes.margin5}>
                     <i className={classes.socials + " fab fa-dribbble"} />
                   </Button>
