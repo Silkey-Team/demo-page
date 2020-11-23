@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
-import { queryStringGetter } from "./QueryStringGetter";
 import { demoSilkeySelfOAuth } from "./SilkeyOAuth";
 import sdk from "@silkey/sdk";
 
@@ -15,11 +14,6 @@ export default class SignIn extends Component {
     };
 
     this.signOut = this.signOut.bind(this);
-  }
-
-  redirectToPath() {
-    let uri = new URL(window.location);
-    window.location.href = uri.pathname;
   }
 
   fetchAuthorisedUser() {
@@ -41,47 +35,15 @@ export default class SignIn extends Component {
     if (verified_user) {
       console.log("verification successful");
       localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
-      // this.redirectToPath();
-      window.location = new URL(window.location).origin;
+      window.location = new URL(window.location).origin + "/profile-page";
     }
     return null;
-
-    // const token_type = queryStringGetter("token_type");
-    // if (token_type !== "Bearer") {
-    //   console.warn("Only Bearer are supported,", token_type, "found.");
-    //   return null;
-    // }
-
-    // const access_token = queryStringGetter("access_token");
-
-    // if (access_token) {
-    //   console.log("verifying access_token...");
-    //   const verified_user = JWTPayloadVerificator(access_token);
-
-    //   if (verified_user) {
-    //     console.log("verification successful");
-    //     localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
-    //     this.redirectToPath();
-    //   } else {
-    //     console.error("JWT invalid");
-    //   }
-    // }
   }
 
-  redirectForOAuthEmail(e) {
+  redirectForOAuth(e) {
     e.preventDefault();
     if (SILKEY_OAUTH_TOKEN_API === "#") {
-      demoSilkeySelfOAuth("email");
-      return;
-    }
-
-    window.location.href = SILKEY_OAUTH_TOKEN_API;
-  }
-
-  redirectForOAuthId(e) {
-    e.preventDefault();
-    if (SILKEY_OAUTH_TOKEN_API === "#") {
-      demoSilkeySelfOAuth("id");
+      demoSilkeySelfOAuth();
       return;
     }
 
@@ -115,14 +77,9 @@ export default class SignIn extends Component {
 
   renderSignIn() {
     return (
-      <div>
-        <Button href="#" onClick={this.redirectForOAuthId} color="rose" round>
-          Sign In: Id
-        </Button>
-        <Button href="#" onClick={this.redirectForOAuthEmail} color="rose" round>
-          Sign In: Email
-        </Button>
-      </div>
+      <Button href="#" onClick={this.redirectForOAuth} color="rose" round>
+        Log in Anonymously
+      </Button>
     );
   }
 
@@ -130,7 +87,7 @@ export default class SignIn extends Component {
     return (
       <>
         <strong>
-          <i className="fa fa-user-secret" /> Hi{" "}
+          <i className="fa fa-user-secret" /> Hi {this.state.user.address}
         </strong>
         <small style={{ color: "white" }}>{this.shortUserId()}</small>{" "}
         <Button href="#" onClick={this.signOut} color="primary" round size="sm">
