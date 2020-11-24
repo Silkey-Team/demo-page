@@ -19,6 +19,8 @@
 .env.production.local
 .env
 .env.staging
+.env.development
+.env.production
 
 .npmrc
 
