@@ -10,7 +10,7 @@ server {
   # Add index.php to the list if you are using PHP
   index index.html
 
-  server_name demo-staging.silkey.io www.demo-staging.silkey.io;
+  server_name demo-silkey;
 
   location ~* \.(?:css|js)$ {
     gzip_static on;

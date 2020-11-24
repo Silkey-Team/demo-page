@@ -11,6 +11,7 @@
 - ssh to server and run `nodejs-droplet-install.sh` on the server 
   Certbot script will ask you several quesions, when ask for domain type ie:  
   `demo-staging.silkey.io www.demo-staging.silkey.io`
+  `demo-sandbox.silkey.io www.demo-sandbox.silkey.io`
 
 __Check configuration__
 ```
