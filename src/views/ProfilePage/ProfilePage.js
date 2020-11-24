@@ -43,6 +43,8 @@ import cardProfile2Square from "assets/img/faces/card-profile2-square.jpg";
 
 import profilePageStyle from "assets/jss/material-kit-pro-react/views/profilePageStyle.js";
 
+import { version } from "../../constants.js";
+
 const useStyles = makeStyles(profilePageStyle);
 
 const SILKEY_LOCAL_STORAGE_KEY = "silkey_token";
@@ -436,11 +438,7 @@ export default function ProfilePage({ ...rest }) {
               </List>
             </div>
             <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} , made with <Favorite className={classes.icon} /> by{" "}
-              <a href="https://www.creative-tim.com?ref=mkpr-profile" target="_blank">
-                Creative Tim
-              </a>{" "}
-              for a better web.
+              &copy; {1900 + new Date().getYear()} {version}
             </div>
           </div>
         }
