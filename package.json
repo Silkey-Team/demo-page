@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
-    "@silkey/sdk": "^0.3.0",
+    "@silkey/sdk": "^0.3.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -43,6 +43,8 @@
     "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "deploy:staging": "npm run build:staging && ./scripts/deploy.sh demo-staging.silkey.io",
+    "build:sandbox": "env-cmd -f .env.sandbox npm run build",
+    "deploy:sandbox": "npm run build:sandbox && ./scripts/deploy.sh demo-sandbox.silkey.io",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

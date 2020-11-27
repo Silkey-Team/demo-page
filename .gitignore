@@ -21,6 +21,7 @@
 .env.staging
 .env.development
 .env.production
+.env.sandbox
 
 .npmrc
 
