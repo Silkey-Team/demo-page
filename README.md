@@ -1,25 +1,28 @@
 # Silkey DEMO page
 
+![Silkey Logo](https://raw.githubusercontent.com/Silkey-Team/brand/master/silkey-word-black.png)
+
 ## DigitalOcean Deployment
 
 ### Deploy as static files
 
-#### First Run Based On DigitalOcean Droplet 
+#### First Run Based On DigitalOcean Droplet
 
 - create NodeJS droplet
 - setup (sub)domains (including www.)
-- ssh to server and run `nodejs-droplet-install.sh` on the server 
+- ssh to server and run `nodejs-droplet-install.sh` on the server
   Certbot script will ask you several quesions, when ask for domain type ie:  
   `demo-staging.silkey.io www.demo-staging.silkey.io`
   `demo-sandbox.silkey.io www.demo-sandbox.silkey.io`
 
-__Check configuration__
+**Check configuration**
+
 ```
 cat /etc/nginx/sites-available/default
 sudo -u nodejs pm2 list
 # should be no items in the list
 ```
- 
+
 ### Deploy service
 
     npm run build:staging
@@ -50,6 +53,7 @@ git pull origin master
 # in case you want to test other branch
 git checkout -t origin/feature/oauth-demo
 ```
+
 - setup docker app:
 
 ```
