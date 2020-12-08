@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
 import { demoSilkeySelfOAuth } from "./SilkeyOAuth";
-import sdk from "@silkey/sdk";
+import { tokenPayloadVerifier } from "@silkey/sdk";
 
 const SILKEY_OAUTH_TOKEN_API = "#";
 const SILKEY_LOCAL_STORAGE_KEY = "silkey_token";
@@ -30,7 +30,7 @@ export default class SignIn extends Component {
 
     const token = new URL(window.location).searchParams.get("token");
     console.log({ token });
-    const verified_user = sdk.tokenPayloadVerifier(token);
+    const verified_user = tokenPayloadVerifier(token);
 
     if (verified_user) {
       console.log("verification successful");

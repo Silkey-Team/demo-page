@@ -1,7 +1,7 @@
-import sdk from "@silkey/sdk";
+import { generateSSORequestParams } from "@silkey/sdk";
 
 export async function demoSilkeySelfOAuth() {
-  const requestParams = await sdk.generateSSORequestParams(process.env.REACT_APP_PRIVATE_KEY, {
+  const requestParams = await generateSSORequestParams(process.env.REACT_APP_PRIVATE_KEY, {
     cancelUrl: process.env.REACT_APP_CANCEL_URL,
     redirectUrl: process.env.REACT_APP_REDIRECT_URL,
     scope: "email",
