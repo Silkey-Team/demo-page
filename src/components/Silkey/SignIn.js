@@ -28,12 +28,12 @@ export default class SignIn extends Component {
       }
     }
 
-    const token = new URL(window.location).searchParams.get("token");
-    console.log({ token });
-    const verified_user = tokenPayloadVerifier(token);
+    const search = new URL(window.location).searchParams;
+    const token = search.get("token");
+    const params = JSON.parse(search.get("ssoParams"));
+    const verified_user = tokenPayloadVerifier(token, params, process.env.REACT_APP_ADDRESS);
 
     if (verified_user) {
-      console.log("verification successful");
       localStorage.setItem(SILKEY_LOCAL_STORAGE_KEY, JSON.stringify(verified_user));
       window.location = new URL(window.location).origin + "/profile-page";
     }
@@ -46,7 +46,6 @@ export default class SignIn extends Component {
       demoSilkeySelfOAuth();
       return;
     }
-
     window.location.href = SILKEY_OAUTH_TOKEN_API;
   }
 
