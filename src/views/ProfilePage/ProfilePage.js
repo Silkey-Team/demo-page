@@ -43,7 +43,7 @@ import cardProfile2Square from "assets/img/faces/card-profile2-square.jpg";
 
 import profilePageStyle from "assets/jss/material-kit-pro-react/views/profilePageStyle.js";
 
-import { version } from "../../constants.js";
+import { version } from "../../../package.json";
 
 const useStyles = makeStyles(profilePageStyle);
 
@@ -438,7 +438,8 @@ export default function ProfilePage({ ...rest }) {
               </List>
             </div>
             <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} {version}
+              &copy; {1900 + new Date().getYear()}{" "}
+              {`v${version} ${process.env.REACT_APP_ENV !== "production" ? `[${process.env.REACT_APP_ENV}]` : ""}`}
             </div>
           </div>
         }

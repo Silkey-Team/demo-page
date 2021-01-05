@@ -20,7 +20,7 @@ import SectionOverview from "views/PresentationPage/Sections/SectionOverview.js"
 
 import presentationStyle from "assets/jss/material-kit-pro-react/views/presentationStyle.js";
 
-import { version } from "../../constants.js";
+import { version } from "../../../package.json";
 
 const useStyles = makeStyles(presentationStyle);
 
@@ -75,7 +75,7 @@ export default function PresentationPage() {
             </div>
             <div className={classes.right}>
               <a href="https://silkey.io" target="_blank" className={classes.footerBrand}>
-                {version}
+                {`v${version} ${process.env.REACT_APP_ENV !== "production" ? `[${process.env.REACT_APP_ENV}]` : ""}`}
               </a>
             </div>
           </div>
